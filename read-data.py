@@ -1,5 +1,6 @@
 import pandas as pd
 import io
+import os
 import seaborn as sns
 import matplotlib.pyplot as plt
 
@@ -15,14 +16,22 @@ def load_csv_clean(path: str) -> pd.DataFrame:
     return pd.read_csv(io.BytesIO(content), sep=";")
 
 
-def plot_rentals_per_year(df: pd.DataFrame) -> None:
-    """Display a histogram of the number of bike rentals per year."""
+def plot_rentals_per_year(df: pd.DataFrame, output_path: str | None = None) -> None:
+    """Display a histogram of the number of bike rentals per year.
+
+    If ``output_path`` is provided, the plot will also be saved to that
+    location as a PNG image. Necessary directories are created
+    automatically.
+    """
     sns.set_style("whitegrid")
     sns.countplot(x="year", data=df)
     plt.title("Bike Rentals per Year")
     plt.xlabel("Year")
     plt.ylabel("Number of Rentals")
     plt.tight_layout()
+    if output_path:
+        os.makedirs(os.path.dirname(output_path), exist_ok=True)
+        plt.savefig(output_path)
     plt.show()
 
 def main():
@@ -33,7 +42,7 @@ def main():
         return
 
     print(df.describe(include="all"))
-    plot_rentals_per_year(df)
+    plot_rentals_per_year(df, "results/histogram.png")
 
 if __name__ == '__main__':
     main()
