@@ -2,7 +2,7 @@ import pandas as pd
 
 def main():
     try:
-        df = pd.read_csv('test.csv')
+        df = pd.read_csv('data/test.csv')
     except Exception as e:
         print(f'Error reading CSV: {e}')
         return
