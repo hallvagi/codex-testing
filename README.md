@@ -1,5 +1,7 @@
 # codex-testing
-testing av openai codex
+Testing of OpenAI Codex.
+
+The dataset file `test.csv` has been moved into the `data/` directory.
 
 
 ## dataset
